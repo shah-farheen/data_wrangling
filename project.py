@@ -1,13 +1,17 @@
 import xml.etree.cElementTree as ET
+from collections import defaultdict
 import pprint
 import re
 
+# OSM files not in the project
+# download from openstreetmap.org
 OSM_FILE = "chicago_illinois.osm"
 OSM_FILE_PART = "chicago_part.osm"
 STREETS_FILE = "streets.txt"
 
 street_type_re = re.compile(r'\S+\.?$', re.IGNORECASE)
-street_names = []
+street_names = {}
+street_dict = defaultdict(set)
 
 expected = ["Street", "Avenue", "Boulevard", "Drive", "Court", "Place", "Square", "Lane", "Road",
             "Trail", "Parkway", "Commons", "Broadway"]
@@ -25,6 +29,10 @@ def is_street_name(elem):
     return (elem.tag == "tag") and (elem.attrib['k'] == "addr:street")
 
 
+def add_street_name(name):
+    street_dict[name[0]].add(name)
+
+
 def update_street_name(name, group, mapping=mapping):
     # name = name.replace(".", "")
     for key, value in mapping.iteritems():
@@ -37,7 +45,7 @@ def update_street_name(name, group, mapping=mapping):
             # if name[-1] == ".":
             #     name = name.replace(".", "")
             break
-    street_names.append(name)
+    add_street_name(name)
 
 
 def audit_street_name(street_name):
@@ -47,7 +55,7 @@ def audit_street_name(street_name):
             # print m.group()
             update_street_name(street_name, m.group())
             return
-    street_names.append(street_name)
+    add_street_name(street_name)
 
 
 def audit_file(file_name):
@@ -58,9 +66,13 @@ def audit_file(file_name):
     osm_file.close()
     # pprint.pprint(list(street_names))
     # print street_names
-    with open(STREETS_FILE, "w") as st_file:
-        for st in sorted(street_names):
-            st_file.write(st+"\n")
+    # with open(STREETS_FILE, "w") as st_file:
+    #     for st in sorted(street_names):
+    #         st_file.write(st+"\n")
+    for key, value in street_dict.iteritems():
+        street_names[key] = list(value)
+        street_names[key].sort()
+    pprint.pprint(dict(street_names))
 
 
 audit_file(OSM_FILE_PART)
