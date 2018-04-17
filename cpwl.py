@@ -185,25 +185,27 @@ def loopInCodes(codesList, versionName, branchHeader, parentBranch):
 	print(failure)
 
 
-currentVersion = "1.0.21.1"
-currentOrgCode = "demo"
-old1orgCodes = ["apex", "apexl", "base", "bkc", "bw", "csac", "cal", "cara", "carm", "cef", "chin", "chac", "rudra"]
-old2orgCodes = ["clat", "cm", "dedu", "dtos", "dest", "disha", "dri", "eds", "evilla", "educ", "edut", "eduv", "ekl", "eedu", "elite", "ejee", "fec", "edge"]
-old3orgCodes = ["gb", "gta", "grvty", "gwr", "mantra", "gyan", "hima", "hkc", "shed", "isr", "ikan", "ime", "impl", "jram", "jmd", "jp", "kic", "kgyan", "khan", "knowc"]
-old4orgCodes = ["ach", "lzone", "mark", "bcc", "mmc", "mmgc", "aims", "np", "nbw", "ntc", "nkc", "osr", "pam", "pcc", "pari", "pray", "qs", "rdc", "real", "ace", "rivan", "rkg", "ruchi", "stc", "sai", "sanj", "cc", "sdk", "ssc", "shik", "shree", "skc", "eco", "spec", "ss", "sski", "stay", "demo", "sumit", "tutp", "smc", "citi", "topp", "vidya", "vector", "vin", "vkl", "vision", "wadh", "win", "zenith"]
+currentVersion = "1.0.22.1"
+currentOrgCode = "tul"
 
-orgCodes = ["demo", "ie", "phoenix", "reddy"]
-adOrgCodes = ["arav", "alti", "arya", "dc", "edup", "kd", "kp", "gaut", "pc", "rays", "srma", "twc", "vish"]
+orgCodes = ["sss", "sa", "c2e", "aaced","stuz", "aaa","adi","aim","akgm","akgp","alfa","apex","apexl","avss","bansal","base","bkc","bw","csac","cal","cara","carm","cef","chin","chac","coc","cft","clat","cm","cont","dedu","dtos","d3c","dest","disha","dri","eds","evilla","educ","edhub","edut","eduv","ekl","eedu","elite","ejee","fec","edge","gb","gca","gta","grvty","gwr","mantra","gyan","hima","ha","hkc","shed","isr","ikan","ime","impl","ie","jram","jmd","jp","kic","kgyan","khan","ki","knowc","ach","lzone","maha","mark","bcc","mmc","mmgc","aims","np","nbw","ntc","nkc","oli","osr","om","pam","pcc","pari","phoenix","piac","pray","qs","rdc","real","reddy","rc","ace","rivan","rkg","ruchi","rudra","stc","sai","sanj","cc","sdk","ssc","shik","shree","skc","eco","spec","ss","sski","stay","demo","genx","sumit","tutp","smc","citi","tch","topper","topp","vidya","vector","vin","vkl","vision","wadh","win","zenith"]
+adOrgCodes = ["arav","alti","ac","arya","ccc","dc","edup","kd","kp","gaut","pc","rays","srma","twc","tul","vish"]
 adBranchHeader = "whitelabel_ads_"
 noAdBranchHeader = "whitelabel_"
 adParentBranch = "white_label_ads"
 noAdParentBranch = "white_label"
 
 
+# print(len(adOrgCodes))
 # loopInCodes(orgCodes, currentVersion, noAdBranchHeader, noAdParentBranch)
 # start(currentOrgCode, currentVersion, noAdBranchHeader, noAdParentBranch)
 # startAfterMerge(currentOrgCode, currentVersion, noAdBranchHeader)
-changeAndDeleteBranch(currentOrgCode, noAdBranchHeader, noAdParentBranch)
+# changeAndDeleteBranch(currentOrgCode, noAdBranchHeader, noAdParentBranch)
+
+# loopInCodes(adOrgCodes, currentVersion, adBranchHeader, adParentBranch)
+# start(currentOrgCode, currentVersion, adBranchHeader, adParentBranch)
+# startAfterMerge(currentOrgCode, currentVersion, adBranchHeader)
+# changeAndDeleteBranch(currentOrgCode, adBranchHeader, adParentBranch)
 
 
 
