@@ -196,7 +196,8 @@ orgCodes = ["sss", "sa", "c2e", "aaced","stuz", "aaa","adi","aim","akgm","akgp",
 				"np","nbw","ntc","nkc","oli","osr","om","pam","pcc","pari","phoenix","piac","pray","qs","rdc","real","reddy","rc",
 				"ace","rivan","rkg","ruchi","rudra","stc","sai","sanj","cc","sdk","ssc","shik","shree","skc","eco","spec","ss","sski",
 				"stay","demo","genx","sumit","tutp","smc","citi","tch","topper","topp","vidya","vector","vin","vkl","vision","wadh",
-				"win","zenith", "be", "ia", "eng", "tc", "se", "kaps", "laksh", "saar", "surya", "infos"]
+				"win","zenith", "be", "ia", "eng", "tc", "se", "kaps", "laksh", "saar", "surya", "infos", "uniq", "aasra"]
+
 adOrgCodes = ["arav","alti","ac","arya","ccc","dc","edup","kd","kp","gaut","pc","rays","srma","twc","tul","vish"]
 adBranchHeader = "whitelabel_ads_"
 noAdBranchHeader = "whitelabel_"
