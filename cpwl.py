@@ -101,7 +101,7 @@ def changeVersions(versionName):
 
 
 def makeBitriseCall(orgCode, branchHeader):
-	url = "https://www.bitrise.io/app/8d0551b8d426d749/build/start.json"
+	url = "https://app.bitrise.io/app/8d0551b8d426d749/build/start.json"
 	body = getBody(orgCode, branchHeader)
 	headers = {'Content-Type': 'application/json'}
 	response = requests.post(url, headers=headers, data=body)
@@ -185,8 +185,8 @@ def loopInCodes(codesList, versionName, branchHeader, parentBranch):
 	print(failure)
 
 
-currentVersion = "1.0.22.1"
-currentOrgCode = "tul"
+currentVersion = "1.0.23.1"
+currentOrgCode = "kaps"
 
 orgCodes = ["sss", "sa", "c2e", "aaced","stuz", "aaa","adi","aim","akgm","akgp","alfa","apex","apexl","avss","bansal",
 				"base","bkc","bw","csac","cal","cara","carm","cef","chin","chac","coc","cft","clat","cm","cont","dedu",
@@ -197,7 +197,7 @@ orgCodes = ["sss", "sa", "c2e", "aaced","stuz", "aaa","adi","aim","akgm","akgp",
 				"ace","rivan","rkg","ruchi","rudra","stc","sai","sanj","cc","sdk","ssc","shik","shree","skc","eco","spec","ss","sski",
 				"stay","demo","genx","sumit","tutp","smc","citi","tch","topper","topp","vidya","vector","vin","vkl","vision","wadh",
 				"win","zenith", "be", "ia", "eng", "tc", "se", "kaps", "laksh", "saar", "surya", "infos", "uniq", "aasra", "padhai",
-				"cryst", "chemo"]
+				"cryst", "chemo", "orgnm"]
 
 adOrgCodes = ["arav","alti","ac","arya","ccc","dc","edup","kd","kp","gaut","pc","rays","srma","twc","tul","vish"]
 adBranchHeader = "whitelabel_ads_"
@@ -206,8 +206,8 @@ adParentBranch = "white_label_ads"
 noAdParentBranch = "white_label"
 
 # makeBitriseCall("se", noAdBranchHeader)
-print(len(adOrgCodes))
-print(len(orgCodes))
+# print(len(adOrgCodes))
+# print(len(orgCodes))
 # loopInCodes(orgCodes, currentVersion, noAdBranchHeader, noAdParentBranch)
 # start(currentOrgCode, currentVersion, noAdBranchHeader, noAdParentBranch)
 # startAfterMerge(currentOrgCode, currentVersion, noAdBranchHeader)
