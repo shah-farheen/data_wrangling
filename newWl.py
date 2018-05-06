@@ -170,24 +170,23 @@ def makeBitriseCall(orgCode, branchHeader):
 
 def getBody(orgCode, branchHeader):
 	body = '''{
-    "hook_info":{"type":"bitrise","api_token":"Iu22CqIaH2Ej96C2dRk7iw"},
-    "build_params":{"workflow_id":"build_apk","environments":[
-      {
-        "mapped_to":"BITRISEIO_ANDROID_KEYSTORE_URL",
-        "value":"file://./app/''' + orgCode + '''.jks",
-        "is_expand":true
-        
-      },
-      {
-        "mapped_to":"BITRISE_GIT_BRANCH",
-        "value":"''' + branchHeader + orgCode + '''",
-        "is_expand":true
-      }
-      ]
-      
-    },
-      "triggered_by":"curl"}'''
-    return body
+	"hook_info":{"type":"bitrise","api_token":"Iu22CqIaH2Ej96C2dRk7iw"},
+	"build_params":{"workflow_id":"build_apk","environments":[
+	  {
+	      "mapped_to":"BITRISEIO_ANDROID_KEYSTORE_URL",
+	        "value":"file://./app/''' + orgCode + '''.jks",
+	        "is_expand":true
+	        },
+	        {
+	        "mapped_to":"BITRISE_GIT_BRANCH",
+	        "value":"''' + branchHeader + orgCode + '''",
+	        "is_expand":true
+	        }
+	        ] 
+	        },
+	        "triggered_by":"curl"}'''
+
+	return body
 
 
 
@@ -235,7 +234,7 @@ noAdParentBranch = "white_label"
 
 currentVersionCode = "1"
 currentVersionName = "1.0.23.1"
-currentOrgCode = "test"
+currentOrgCode = "testing"
 currentAppName = "Test App"
 currentOrgId = "25"
 
