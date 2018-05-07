@@ -206,8 +206,12 @@ def commitBranch(orgCode):
 	return commitResult
 
 def pushBranch(orgCode, branchHeader):
-	pushResult = subprocess.call(["git", "-C", gitDirectory, "push", "origin", branchHeader + orgCode])
+	pushResult = subprocess.call(["git", "-C", gitDirectory, "push", "-u", "origin", branchHeader + orgCode])
 	return pushResult
+
+def deleteBranch(orgCode, branchHeader):
+	deleteResult = subprocess.call(["git", "-C", gitDirectory, "branch", "-d", branchHeader + orgCode])
+	return deleteResult
 
 def resetCode():
 	addResult = addFilesToCommit()
@@ -234,9 +238,9 @@ noAdParentBranch = "white_label"
 
 currentVersionCode = "1"
 currentVersionName = "1.0.23.1"
-currentOrgCode = "testing"
-currentAppName = "Test App"
-currentOrgId = "25"
+currentOrgCode = "cmntra"
+currentAppName = "Commerce Mantra"
+currentOrgId = "174"
 
 def start(parentBranch, branchHeader, orgCode, appName, orgId, versionCode, versionName):
 	printResult("resetResult", resetCode())
@@ -252,6 +256,9 @@ def start(parentBranch, branchHeader, orgCode, appName, orgId, versionCode, vers
 	printResult("commitResult", commitBranch(orgCode))
 	printResult("pushResult", pushBranch(orgCode, branchHeader))
 	makeBitriseCall(orgCode, branchHeader)
+	printResult("resetResult", resetCode())
+	printResult("changeResult", changeBranch(parentBranch))
+	printResult("deleteResult", deleteBranch(orgCode, branchHeader))
 
 
 start(noAdParentBranch, noAdBranchHeader, currentOrgCode, currentAppName, currentOrgId, currentVersionCode, currentVersionName)
