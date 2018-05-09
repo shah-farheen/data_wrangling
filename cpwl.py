@@ -185,9 +185,10 @@ def loopInCodes(codesList, versionName, branchHeader, parentBranch):
 	print(failure)
 
 
-currentVersion = "1.0.23.1"
+currentVersion = "1.0.24.1"
 currentOrgCode = "kaps"
 
+singleCode = ["piac"]
 unPublishedOrgs = ["ejee"]
 
 orgCodes = ["chemo", "sss", "sa", "c2e", "aaced","stuz", "aaa","adi","aim","akgm","akgp","alfa","apex","apexl","avss","bansal",
@@ -199,7 +200,7 @@ orgCodes = ["chemo", "sss", "sa", "c2e", "aaced","stuz", "aaa","adi","aim","akgm
 				"ace","rivan","rkg","ruchi","rudra","stc","sai","sanj","cc","sdk","ssc","shik","shree","skc","eco","spec","ss","sski",
 				"stay","demo","genx","sumit","tutp","smc","citi","tch","topper","topp","vidya","vector","vin","vkl","vision","wadh",
 				"win","zenith", "be", "ia", "eng", "tc", "se", "kaps", "laksh", "saar", "surya", "infos", "uniq", "aasra", "padhai",
-				"cryst", "orgnm", "learn", "mma", "master", "angel", "cmntra"]
+				"cryst", "orgnm", "learn", "mma", "master", "angel", "cmntra", "apxin", "miner", "siyer", "waves", "ptc"]
 
 adOrgCodes = ["arav","alti","ac","arya","ccc","dc","edup","kd","kp","gaut","pc","rays","srma","twc","tul","vish"]
 adBranchHeader = "whitelabel_ads_"
@@ -210,12 +211,12 @@ noAdParentBranch = "white_label"
 # makeBitriseCall("se", noAdBranchHeader)
 # print(len(adOrgCodes))
 # print(len(orgCodes))
-loopInCodes(orgCodes, currentVersion, noAdBranchHeader, noAdParentBranch)
+loopInCodes(singleCode, currentVersion, noAdBranchHeader, noAdParentBranch)
 # start(currentOrgCode, currentVersion, noAdBranchHeader, noAdParentBranch)
 # startAfterMerge(currentOrgCode, currentVersion, noAdBranchHeader)
 # changeAndDeleteBranch(currentOrgCode, noAdBranchHeader, noAdParentBranch)
 
-loopInCodes(adOrgCodes, currentVersion, adBranchHeader, adParentBranch)
+# loopInCodes(adOrgCodes, currentVersion, adBranchHeader, adParentBranch)
 # start(currentOrgCode, currentVersion, adBranchHeader, adParentBranch)
 # startAfterMerge(currentOrgCode, currentVersion, adBranchHeader)
 # changeAndDeleteBranch(currentOrgCode, adBranchHeader, adParentBranch)
