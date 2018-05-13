@@ -185,22 +185,23 @@ def loopInCodes(codesList, versionName, branchHeader, parentBranch):
 	print(failure)
 
 
-currentVersion = "1.0.24.1"
+currentVersion = "1.0.25.1"
 currentOrgCode = "kaps"
 
-singleCode = ["piac"]
+singleCode = ["gca", "grvty"]
 unPublishedOrgs = ["ejee"]
 
-orgCodes = ["chemo", "sss", "sa", "c2e", "aaced","stuz", "aaa","adi","aim","akgm","akgp","alfa","apex","apexl","avss","bansal",
+orgCodes = ["apxin", "miner", "siyer", "waves", "ptc", "gca", "chemo", "sss", "sa", "c2e", "aaced","stuz", "aaa","adi","aim",
+				"akgm","akgp","alfa","apex","apexl","avss","bansal",
 				"base","bkc","bw","csac","cal","cara","carm","cef","chin","chac","coc","cft","clat","cm","cont","dedu",
 				"dtos","d3c","dest","disha","dri","eds","evilla","educ","edhub","edut","eduv","ekl","eedu","elite",
-				"fec","edge","gb","gca","gta","grvty","gwr","mantra","gyan","hima","ha","hkc","shed","isr","ikan","ime","impl",
+				"fec","edge","gb", "gta","grvty","gwr","mantra","gyan","hima","ha","hkc","shed","isr","ikan","ime","impl",
 				"ie","jram","jmd","jp","kic","kgyan","khan","ki","knowc","ach","lzone","maha","mark","bcc","mmc","mmgc","aims",
 				"np","nbw","ntc","nkc","oli","osr","om","pam","pcc","pari","phoenix","piac","pray","qs","rdc","real","reddy","rc",
 				"ace","rivan","rkg","ruchi","rudra","stc","sai","sanj","cc","sdk","ssc","shik","shree","skc","eco","spec","ss","sski",
 				"stay","demo","genx","sumit","tutp","smc","citi","tch","topper","topp","vidya","vector","vin","vkl","vision","wadh",
 				"win","zenith", "be", "ia", "eng", "tc", "se", "kaps", "laksh", "saar", "surya", "infos", "uniq", "aasra", "padhai",
-				"cryst", "orgnm", "learn", "mma", "master", "angel", "cmntra", "apxin", "miner", "siyer", "waves", "ptc"]
+				"cryst", "orgnm", "learn", "mma", "master", "angel", "cmntra", "guru"]
 
 adOrgCodes = ["arav","alti","ac","arya","ccc","dc","edup","kd","kp","gaut","pc","rays","srma","twc","tul","vish"]
 adBranchHeader = "whitelabel_ads_"
@@ -211,7 +212,7 @@ noAdParentBranch = "white_label"
 # makeBitriseCall("se", noAdBranchHeader)
 # print(len(adOrgCodes))
 # print(len(orgCodes))
-loopInCodes(singleCode, currentVersion, noAdBranchHeader, noAdParentBranch)
+# loopInCodes(orgCodes, currentVersion, noAdBranchHeader, noAdParentBranch)
 # start(currentOrgCode, currentVersion, noAdBranchHeader, noAdParentBranch)
 # startAfterMerge(currentOrgCode, currentVersion, noAdBranchHeader)
 # changeAndDeleteBranch(currentOrgCode, noAdBranchHeader, noAdParentBranch)
