@@ -13,11 +13,25 @@ from pathlib2 import Path
 
 gitDirectory = "/Users/farheenshah/AndroidStudioProjects/classplus"
 stringsFile = gitDirectory + "/app/src/main/res/values/strings.xml"
+colorsFile = gitDirectory + "/app/src/main/res/values/colors.xml"
 gradleFile = gitDirectory + "/app/build.gradle"
 keystorePath = gitDirectory + "/app/"
 keyPassWord = "classplus@2018"
 rootImageDir = "/Users/farheenshah/Desktop/images"
 resourcesDir = gitDirectory + "/app/src/main/res"
+
+colorPrimary = "colorPrimary"
+colorDark = "colorDark"
+colorLight = "colorLight"
+
+colors = {
+	"default" : { colorPrimary : "009ae0", colorDark : "0084C1", colorLight : "62cbff" },
+	"red" : { colorPrimary : "FD3D39", colorDark : "CA302D", colorLight : "FC6865" },
+	"orange" : { colorPrimary : "FE9526", colorDark : "CB771E", colorLight : "FBAA55" },
+	"green" : { colorPrimary : "53D86A", colorDark : "42AC54", colorLight : "73F98A" },
+	"purple" : { colorPrimary : "595BD4", colorDark : "4748A9", colorLight : "7E80F3" },
+	"pink" : { colorPrimary : "FD3259", colorDark : "CA2847", colorLight : "F9607D" }
+}
 
 keyCommand = "keytool -genkey -v -keystore /Users/farheenshah/AndroidStudioProjects/classplus/app/orgnm.jks -keyalg RSA -keysize 2048 -validity 10000 -alias classplus -keypass classplus@2018 -storepass classplus@2018 -dname CN=Classplus"
 
@@ -106,6 +120,19 @@ def editStrings(filename, appName, orgId, orgCode):
 		else:
 			sys.stdout.write(line)
 
+def editColors(filename, colorDict, defaultColorDict):
+	for line in fileinput.input(filename, inplace=True):
+		if any(key in line for key in ("name=\"colorPrimary\"", "name=\"colorPrimaryWithAlpha\"", "name=\"colorPrimaryWith10Alpha\"", "name=\"colorAccent\"")):
+			line = line.replace(defaultColorDict[colorPrimary], colorDict[colorPrimary])
+			sys.stdout.write(line)
+		elif "name=\"colorPrimaryDark\"" in line:
+			line = line.replace(defaultColorDict[colorDark], colorDict[colorDark])
+			sys.stdout.write(line)
+		elif "name=\"colorPrimaryLight\"" in line:
+			line = line.replace(defaultColorDict[colorLight], colorDict[colorLight])
+			sys.stdout.write(line)
+		else:
+			sys.stdout.write(line)
 
 def editBuildGradle(filename, orgCode, versionCode, versionName):
 	for line in fileinput.input(filename, inplace=True):
@@ -236,18 +263,20 @@ noAdBranchHeader = "whitelabel_"
 adParentBranch = "white_label_ads"
 noAdParentBranch = "white_label"
 
+currentColor = "default"
 currentVersionCode = "1"
-currentVersionName = "1.0.23.1"
-currentOrgCode = "cmntra"
-currentAppName = "Commerce Mantra"
-currentOrgId = "174"
+currentVersionName = "1.0.25.1"
+currentOrgCode = "shub"
+currentAppName = "Scholars Hub"
+currentOrgId = "190"
 
-def start(parentBranch, branchHeader, orgCode, appName, orgId, versionCode, versionName):
+def start(parentBranch, branchHeader, orgCode, appName, orgId, versionCode, versionName, appColor):
 	printResult("resetResult", resetCode())
 	printResult("changeResult", changeBranch(parentBranch))
 	printResult("createResult", createBranch(orgCode, branchHeader))
 	printResult("changeResult", changeBranch(branchHeader + orgCode))
 	editStrings(stringsFile, appName, orgId, orgCode)
+	editColors(colorsFile, colors[appColor], colors["default"])
 	editBuildGradle(gradleFile, orgCode, versionCode, versionName)
 	printResult("keyResult", generateKeystore(keystorePath, orgCode, keyPassWord))
 	changeIcons("logo.png", rootImageDir, "ic_launcher.png")
@@ -261,9 +290,10 @@ def start(parentBranch, branchHeader, orgCode, appName, orgId, versionCode, vers
 	printResult("deleteResult", deleteBranch(orgCode, branchHeader))
 
 
-start(noAdParentBranch, noAdBranchHeader, currentOrgCode, currentAppName, currentOrgId, currentVersionCode, currentVersionName)
-# start(adParentBranch, adBranchHeader, currentOrgCode, currentAppName, currentOrgId, currentVersionCode, currentVersionName)
-
+# start(noAdParentBranch, noAdBranchHeader, currentOrgCode, currentAppName, currentOrgId, currentVersionCode, currentVersionName, currentColor)
+# start(adParentBranch, adBranchHeader, currentOrgCode, currentAppName, currentOrgId, currentVersionCode, currentVersionName, currentColor)
+# editStrings(stringsFile, currentAppName, currentOrgId, currentOrgCode)
+# editColors(colorsFile, colors["default"], colors["default"])
 
 
 
