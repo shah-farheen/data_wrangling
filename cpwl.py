@@ -99,6 +99,13 @@ def changeVersions(versionName):
   #       versionNumber = int(a[1]) + 1
   #       line.replace('versionCode ' + str(versionNumber-1), 'versionCode ' + str(versionNumber))
 
+def deleteBranches(codesList, parentBranch, branchHeader):
+	resetCode()
+	changeResult = changeBranch(parentBranch)
+	if(changeResult == 0):
+		for code in codesList:
+			printResult("deleteResult", deleteBranch(code, branchHeader))	
+
 
 def makeBitriseCall(orgCode, branchHeader):
 	url = "https://app.bitrise.io/app/8d0551b8d426d749/build/start.json"
@@ -185,25 +192,26 @@ def loopInCodes(codesList, versionName, branchHeader, parentBranch):
 	print(failure)
 
 
-currentVersion = "1.0.25.1"
-currentOrgCode = "kaps"
+currentVersion = "1.0.28.1"
+currentOrgCode = "ruchi"
 
 singleCode = ["gca", "grvty"]
 unPublishedOrgs = ["ejee"]
 
 orgCodes = ["apxin", "miner", "siyer", "waves", "ptc", "gca", "chemo", "sss", "sa", "c2e", "aaced","stuz", "aaa","adi","aim",
-				"akgm","akgp","alfa","apex","apexl","avss","bansal", "dydx", "shub",
-				"base","bkc","bw","csac","cal","cara","carm","cef","chin","chac","coc","cft","clat","cm","cont","dedu",
+				"akgm","akgp","alfa","apex","apexl","avss","bansal", "dydx", "shub", "eca", "et", "prtbha", "chemz", 
+				"bkc","bw","csac","cal","cara","carm","cef","chin","chac","coc","cft","clat","cm","cont","dedu",
 				"dtos","d3c","dest","disha","dri","eds","evilla","educ","edhub","edut","eduv","ekl","eedu","elite",
-				"fec","edge","gb", "gta","grvty","gwr","mantra","gyan","hima","ha","hkc","shed","isr","ikan","ime","impl",
+				"edge","gb", "gta","grvty","gwr","mantra","gyan","hima","ha","hkc","shed","isr","ikan","ime","impl",
 				"ie","jram","jmd","jp","kic","kgyan","khan","ki","knowc","ach","lzone","maha","mark","bcc","mmc","mmgc","aims",
 				"np","nbw","ntc","nkc","oli","osr","om","pam","pcc","pari","phoenix","piac","pray","qs","rdc","real","reddy","rc",
-				"ace","rivan","rkg","ruchi","rudra","stc","sai","sanj","cc","sdk","ssc","shik","shree","skc","eco","spec","ss","sski",
+				"ace","rivan","rkg","ruchi", "rudra","stc","sai","sanj","cc","sdk","ssc","shik","shree","skc","eco","spec","ss","sski",
 				"stay","demo","genx","sumit","tutp","smc","citi","tch","topper","topp","vidya","vector","vin","vkl","vision","wadh",
 				"win","zenith", "be", "ia", "eng", "tc", "se", "kaps", "laksh", "saar", "surya", "infos", "uniq", "aasra", "padhai",
-				"cryst", "orgnm", "learn", "mma", "master", "angel", "cmntra", "guru", "arain", "jmac", "extra", "gdcls", "azure", "sking"]
+				"cryst", "orgnm", "learn", "mma", "master", "angel", "cmntra", "guru", "arain", "jmac", "extra", "gdcls", "azure", "sking",
+				"vkc", "bbs", "kc", "marvel", "acet", "base", "hc", "fec"]
 
-adOrgCodes = ["arav","alti","ac","arya","ccc","dc","edup","kd","kp","gaut","pc","rays","srma","twc","tul","vish"]
+adOrgCodes = ["arav","alti","ac","arya","ccc","dc","edup","kd","kp","gaut","pc","rays","srma","twc","tul","vish", "ea"]
 adBranchHeader = "whitelabel_ads_"
 noAdBranchHeader = "whitelabel_"
 adParentBranch = "white_label_ads"
@@ -212,12 +220,17 @@ noAdParentBranch = "white_label"
 # makeBitriseCall("se", noAdBranchHeader)
 # print(len(adOrgCodes))
 # print(len(orgCodes))
-# loopInCodes(orgCodes, currentVersion, noAdBranchHeader, noAdParentBranch)
+# loopInCodes(orgCodesThree, currentVersion, noAdBranchHeader, noAdParentBranch)
+
+# deleteBranches(orgCodes, noAdParentBranch, noAdBranchHeader)
+
+# printResult("pushResult", pushBranch(currentOrgCode, noAdBranchHeader))
+# makeBitriseCall(currentOrgCode, noAdBranchHeader)
 # start(currentOrgCode, currentVersion, noAdBranchHeader, noAdParentBranch)
 # startAfterMerge(currentOrgCode, currentVersion, noAdBranchHeader)
 # changeAndDeleteBranch(currentOrgCode, noAdBranchHeader, noAdParentBranch)
 
-# loopInCodes(adOrgCodes, currentVersion, adBranchHeader, adParentBranch)
+loopInCodes(adOrgCodes, currentVersion, adBranchHeader, adParentBranch)
 # start(currentOrgCode, currentVersion, adBranchHeader, adParentBranch)
 # startAfterMerge(currentOrgCode, currentVersion, adBranchHeader)
 # changeAndDeleteBranch(currentOrgCode, adBranchHeader, adParentBranch)
