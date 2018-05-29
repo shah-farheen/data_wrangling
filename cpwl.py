@@ -209,7 +209,7 @@ orgCodes = ["apxin", "miner", "siyer", "waves", "ptc", "gca", "chemo", "sss", "s
 				"stay","demo","genx","sumit","tutp","smc","citi","tch","topper","topp","vidya","vector","vin","vkl","vision","wadh",
 				"win","zenith", "be", "ia", "eng", "tc", "se", "kaps", "laksh", "saar", "surya", "infos", "uniq", "aasra", "padhai",
 				"cryst", "orgnm", "learn", "mma", "master", "angel", "cmntra", "guru", "arain", "jmac", "extra", "gdcls", "azure", "sking",
-				"vkc", "bbs", "kc", "marvel", "acet", "base", "hc", "fec"]
+				"vkc", "bbs", "kc", "marvel", "acet", "base", "hc", "fec", "sjeet", "dev", "convex"]
 
 adOrgCodes = ["arav","alti","ac","arya","ccc","dc","edup","kd","kp","gaut","pc","rays","srma","twc","tul","vish", "ea"]
 adBranchHeader = "whitelabel_ads_"
@@ -220,7 +220,7 @@ noAdParentBranch = "white_label"
 # makeBitriseCall("se", noAdBranchHeader)
 # print(len(adOrgCodes))
 # print(len(orgCodes))
-# loopInCodes(orgCodesThree, currentVersion, noAdBranchHeader, noAdParentBranch)
+# loopInCodes(orgCodesTwo, currentVersion, noAdBranchHeader, noAdParentBranch)
 
 # deleteBranches(orgCodes, noAdParentBranch, noAdBranchHeader)
 
@@ -230,7 +230,7 @@ noAdParentBranch = "white_label"
 # startAfterMerge(currentOrgCode, currentVersion, noAdBranchHeader)
 # changeAndDeleteBranch(currentOrgCode, noAdBranchHeader, noAdParentBranch)
 
-loopInCodes(adOrgCodes, currentVersion, adBranchHeader, adParentBranch)
+# loopInCodes(adOrgCodes, currentVersion, adBranchHeader, adParentBranch)
 # start(currentOrgCode, currentVersion, adBranchHeader, adParentBranch)
 # startAfterMerge(currentOrgCode, currentVersion, adBranchHeader)
 # changeAndDeleteBranch(currentOrgCode, adBranchHeader, adParentBranch)
