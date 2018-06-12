@@ -216,7 +216,6 @@ def getBody(orgCode, branchHeader):
 	return body
 
 
-
 def printResult(resultLabel, result):
 	print("\n\n" + resultLabel + ": " + str(result) + "\n\n")
 
@@ -253,6 +252,14 @@ def createBranch(orgCode, branchHeader):
 	createResult = subprocess.call(["git", "-C", gitDirectory, "branch", branchHeader + orgCode])
 	return createResult
 
+def checkoutBranch(orgCode, branchHeader):
+	checkoutResult = subprocess.call(["git", "-C", gitDirectory, "checkout", "-b", branchHeader + orgCode, "--track", "origin/" + branchHeader + orgCode])
+	return checkoutResult
+
+def mergeBranch(parentBranch):
+	mergeResult = subprocess.call(["git", "-C", gitDirectory, "merge", "--no-commit", parentBranch])
+	return mergeResult
+
 def generateKeystore(keyPath, orgCode, password):
 	keyResult = subprocess.call(["keytool", "-genkey", "-v", "-keystore", keyPath + orgCode + ".jks", "-keyalg", "RSA", "-keysize", "2048", "-validity", "10000", "-alias", "classplus", "-keypass", password, "-storepass", password, "-dname", "CN=Classplus"])
 	return keyResult
@@ -265,10 +272,19 @@ noAdParentBranch = "white_label"
 
 currentColor = "default"
 currentVersionCode = "1"
-currentVersionName = "1.0.25.1"
-currentOrgCode = "shub"
-currentAppName = "Scholars Hub"
-currentOrgId = "190"
+currentVersionName = "1.0.28.1"
+currentOrgCode = "mcp"
+currentAppName = "MCP MATHS BIO MANTRA"
+currentOrgId = "226"
+
+def startAgain(parentBranch, branchHeader, orgCode, appName, orgId, versionCode, versionName, appColor):
+	printResult("resetResult", resetCode())
+	printResult("changeResult", changeBranch(parentBranch))
+	printResult("checkoutResult", checkoutBranch(orgCode, branchHeader))
+	mergeResult = mergeBranch(parentBranch)
+	printResult("mergeResult", mergeResult)
+	if(mergeResult != 0):
+		return 1
 
 def start(parentBranch, branchHeader, orgCode, appName, orgId, versionCode, versionName, appColor):
 	printResult("resetResult", resetCode())
@@ -293,7 +309,7 @@ def start(parentBranch, branchHeader, orgCode, appName, orgId, versionCode, vers
 # start(noAdParentBranch, noAdBranchHeader, currentOrgCode, currentAppName, currentOrgId, currentVersionCode, currentVersionName, currentColor)
 # start(adParentBranch, adBranchHeader, currentOrgCode, currentAppName, currentOrgId, currentVersionCode, currentVersionName, currentColor)
 # editStrings(stringsFile, currentAppName, currentOrgId, currentOrgCode)
-# editColors(colorsFile, colors["default"], colors["default"])
+# editColors(colorsFile, colors["red"], colors["default"])
 
 
 
