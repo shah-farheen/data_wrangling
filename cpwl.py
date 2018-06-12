@@ -141,6 +141,33 @@ def getBody(orgCode, branchHeader):
   	return body
 
 
+def getBuildOnlyBody(orgCode, branchHeader):
+	body = '''{
+	"hook_info":{"type":"bitrise","api_token":"Iu22CqIaH2Ej96C2dRk7iw"},
+	"build_params":{"workflow_id":"build_apk","environments":[
+	  {
+	      "mapped_to":"BITRISEIO_ANDROID_KEYSTORE_URL",
+	        "value":"file://./app/''' + orgCode + '''.jks",
+	        "is_expand":true
+	        },
+	        {
+	        "mapped_to":"BITRISE_GIT_BRANCH",
+	        "value":"''' + branchHeader + orgCode + '''",
+	        "is_expand":true
+	        }
+	        ] 
+	        },
+	        "triggered_by":"curl"}'''
+
+	return body
+
+def makeBuildOnlyBitriseCall(orgCode, branchHeader):
+	url = "https://app.bitrise.io/app/8d0551b8d426d749/build/start.json"
+	body = getBuildOnlyBody(orgCode, branchHeader)
+	headers = {'Content-Type': 'application/json'}
+	response = requests.post(url, headers=headers, data=body)
+	printResult("responseCode", response.status_code)
+
 def changeAndDeleteBranch(orgCode, branchHeader, parentBranch):
 	changeResult = changeBranch(parentBranch)
 	if(changeResult == 0):
@@ -168,7 +195,6 @@ def startAfterMerge(orgCode, versionName, branchHeader):
 	printResult("commitResult", commitBranch(orgCode))
 	printResult("pushResult", pushBranch(orgCode, branchHeader))
 	makeBitriseCall(orgCode, branchHeader)	
-
 
 def loopInCodes(codesList, versionName, branchHeader, parentBranch):
 	success = []
@@ -210,7 +236,7 @@ orgCodes = ["apxin", "miner", "siyer", "waves", "ptc", "gca", "chemo", "sss", "s
 				"win","zenith", "be", "ia", "eng", "tc", "se", "kaps", "laksh", "saar", "surya", "infos", "uniq", "aasra", "padhai",
 				"cryst", "orgnm", "learn", "mma", "master", "angel", "cmntra", "guru", "arain", "jmac", "extra", "gdcls", "azure", "sking",
 				"vkc", "bbs", "kc", "marvel", "acet", "base", "hc", "fec", "sjeet", "dev", "convex", "gulia", "ankit", "apexp", "balaji",
-				"oa", "asc"]
+				"oa", "asc", "cmi", "fp", "pcls", "sport", "bbc", "sbc", "maluka", "cb", "aayam", "star", "mcp"]
 
 adOrgCodes = ["arav","alti","ac","arya","ccc","dc","edup","kd","kp","gaut","pc","rays","srma","twc","tul","vish", "ea", "sep"]
 adBranchHeader = "whitelabel_ads_"
@@ -218,10 +244,13 @@ noAdBranchHeader = "whitelabel_"
 adParentBranch = "white_label_ads"
 noAdParentBranch = "white_label"
 
+orgs = ["bbc", "sbc", "maluka", "cb", "aayam", "star"]
+
 # makeBitriseCall("se", noAdBranchHeader)
 # print(len(adOrgCodes))
 # print(len(orgCodes))
-# loopInCodes(orgCodesTwo, currentVersion, noAdBranchHeader, noAdParentBranch)
+# print getBuildOnlyBody("ac", "whitelabel_")
+# loopInCodes(orgCodes, currentVersion, noAdBranchHeader, noAdParentBranch)
 
 # deleteBranches(orgCodes, noAdParentBranch, noAdBranchHeader)
 
