@@ -236,7 +236,7 @@ orgCodes = ["apxin", "miner", "siyer", "waves", "ptc", "gca", "chemo", "sss", "s
 				"win","zenith", "be", "ia", "eng", "tc", "se", "kaps", "laksh", "saar", "surya", "infos", "uniq", "aasra", "padhai",
 				"cryst", "orgnm", "learn", "mma", "master", "angel", "cmntra", "guru", "arain", "jmac", "extra", "gdcls", "azure", "sking",
 				"vkc", "bbs", "kc", "marvel", "acet", "base", "hc", "fec", "sjeet", "dev", "convex", "gulia", "ankit", "apexp", "balaji",
-				"oa", "asc", "cmi", "fp", "pcls", "sport", "bbc", "sbc", "maluka", "cb", "aayam", "star", "mcp"]
+				"oa", "asc", "cmi", "fp", "pcls", "sport", "bbc", "sbc", "maluka", "cb", "aayam", "star", "mcp", "neep", "lc", "ateam", "krishn"]
 
 adOrgCodes = ["arav","alti","ac","arya","ccc","dc","edup","kd","kp","gaut","pc","rays","srma","twc","tul","vish", "ea", "sep"]
 adBranchHeader = "whitelabel_ads_"
