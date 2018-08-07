@@ -9,6 +9,7 @@ import git
 import requests
 import subprocess
 import re
+import json
 from pathlib2 import Path
 
 gitDirectory = "/Users/farheenshah/AndroidStudioProjects/classplus"
@@ -186,6 +187,59 @@ def moveImage(imageName, rootDir, destDir):
 	else:
 		return False
 
+def createShortLink(orgCode):
+	url = "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyB6UF16p5FnT1-kzt5lCjmbwCu_XAN6fmg"
+	body = getShortLinkBody(orgCode)
+	headers = {'Content-Type': 'application/json'}
+	response = requests.post(url, headers=headers, data=body)
+	return response.json()["shortLink"]
+
+def getShortLinkBody(orgCode):
+	body = {}
+	body["longDynamicLink"] = "https://clspls.page.link/?link=https://play.google.com/store/apps/details?id=co.classplus." + orgCode + "&apn=co.classplus." +  orgCode
+	body["suffix"] = {"option":"SHORT"}
+	return json.dumps(body)
+
+def makeOrgId(baseUrl, name, orgCode, smsRoute, resources, customTest, ads, accessKey):
+	url = baseUrl + "su/organizations"
+	body = getOrgIdBody(name, orgCode, smsRoute, resources, customTest, ads, accessKey)
+	headers = {'Content-Type': 'application/json'}
+	response = requests.post(url, headers=headers, data=body)
+	if response.status_code == 201:
+		return response.json()["data"]["orgId"]
+	else:
+		print(response.json()["message"])
+		return -1
+
+def getOrgIdBody(name, orgCode, smsRoute, resources, customTest, ads, accessKey):
+	body = {}
+	body["name"] = name
+	body["orgCode"] = orgCode
+	body["playStoreUrl"] = createShortLink(orgCode)
+	body["smsRoute"] = smsRoute
+	body["resources"] = resources
+	body["customTest"] = customTest
+	body["accessKey"] = accessKey
+	body["ads"] = ads
+	return json.dumps(body)
+
+def activatePremium(baseUrl, name, email, mobile, expiryDate, orgId, accessKey):
+	url = baseUrl + "su/tutors"
+	body = getPremiumActivateBody(name, email, mobile, expiryDate, orgId, accessKey)
+	headers = {'Content-Type': 'application/json'}
+	response = requests.post(url, headers=headers, data=body)
+	printResult("activateCode", response.status_code)
+
+def getPremiumActivateBody(name, email, mobile, expiryDate, orgId, accessKey):
+	body = {}
+	body["countryCode"] = 91
+	body["mobile"] = mobile
+	body["email"] = email
+	body["name"] = name
+	body["premiumExpiry"] = expiryDate
+	body["orgId"] = orgId
+	body["accessKey"] = accessKey
+	return json.dumps(body)
 
 def makeBitriseCall(orgCode, branchHeader):
 	url = "https://app.bitrise.io/app/8d0551b8d426d749/build/start.json"
@@ -269,13 +323,9 @@ adBranchHeader = "whitelabel_ads_"
 noAdBranchHeader = "whitelabel_"
 adParentBranch = "white_label_ads"
 noAdParentBranch = "white_label"
-
-currentColor = "default"
-currentVersionCode = "1"
-currentVersionName = "1.0.28.1"
-currentOrgCode = "mcp"
-currentAppName = "MCP MATHS BIO MANTRA"
-currentOrgId = "226"
+cpAccessKey = "N6FPaqWCG58jH0d7u7Qoh7xTugP5Mw_IJQGjbRnQXKuImDL-9hCaVFQg"
+cpBaseUrl = "http://staging-whitelabel.classplusapp.com/"
+# cpBaseUrl = "https://api.classplusapp.com/"
 
 def startAgain(parentBranch, branchHeader, orgCode, appName, orgId, versionCode, versionName, appColor):
 	printResult("resetResult", resetCode())
@@ -286,7 +336,23 @@ def startAgain(parentBranch, branchHeader, orgCode, appName, orgId, versionCode,
 	if(mergeResult != 0):
 		return 1
 
-def start(parentBranch, branchHeader, orgCode, appName, orgId, versionCode, versionName, appColor):
+def start(orgCode, appName, versionCode, versionName, appColor, baseUrl, clientName, smsRoute, resources, customTest, ads, email, mobile, expiryDate, accessKey):
+	# make OrgId
+	orgId = makeOrgId(baseUrl, clientName, orgCode, smsRoute, resources, customTest, ads, accessKey)
+	if orgId == -1:
+		print("OrgId not created")
+		return
+
+	# create branch 
+	if ads == 0:
+		parentBranch = noAdParentBranch
+		branchHeader = noAdBranchHeader
+	elif ads == 1:
+		parentBranch = adParentBranch
+		branchHeader = adBranchHeader
+	else:
+		print("Wrong value of ads, should be 0/1")
+		return
 	printResult("resetResult", resetCode())
 	printResult("changeResult", changeBranch(parentBranch))
 	printResult("createResult", createBranch(orgCode, branchHeader))
@@ -294,18 +360,45 @@ def start(parentBranch, branchHeader, orgCode, appName, orgId, versionCode, vers
 	editStrings(stringsFile, appName, orgId, orgCode)
 	editColors(colorsFile, colors[appColor], colors["default"])
 	editBuildGradle(gradleFile, orgCode, versionCode, versionName)
-	printResult("keyResult", generateKeystore(keystorePath, orgCode, keyPassWord))
+	keyResult = generateKeystore(keystorePath, orgCode, keyPassWord)
+	printResult("keyResult", keyResult)
+	if keyResult != 0:
+		print("Key not created")
+		return
 	changeIcons("logo.png", rootImageDir, "ic_launcher.png")
 	moveLogoAndSlides("ic_logo_full.png", "intro_1.png", "intro_2.png", "intro_3.png", rootImageDir, resourcesDir + "/drawable-xxxhdpi")
 	printResult("gitAddCode", addFilesToCommit())
 	printResult("commitResult", commitBranch(orgCode))
-	printResult("pushResult", pushBranch(orgCode, branchHeader))
+	pushResult = pushBranch(orgCode, branchHeader)
+	printResult("pushResult", pushResult)
+	if pushResult != 0:
+		print("Push un-successfull")
+		return
 	makeBitriseCall(orgCode, branchHeader)
 	printResult("resetResult", resetCode())
 	printResult("changeResult", changeBranch(parentBranch))
 	printResult("deleteResult", deleteBranch(orgCode, branchHeader))
 
+	# activate premium
+	activatePremium(baseUrl, clientName, email, mobile, expiryDate, orgId, accessKey)
 
+currentColor = "default"
+currentVersionCode = "1"
+currentVersionName = "1.0.32.1"
+currentOrgCode = "drona"
+currentAppName = "Drona Group of Institutes"
+currentClientName = "Drona Group of Institutes"
+currentEmail = "daman@classplus@.co"
+currentMobile = "9990932418"
+currentExpiryDate = "2019-08-07 00:00:00"   # format yyyy-MM-dd HH:mm:ss
+
+currentSmsRoute = 1    # 0 or 1
+currentResources = 1   # 0 or 1
+currentCustomTest = 1  # 0 or 1
+currentAds = 0         # 0 or 1
+
+# start(currentOrgCode, currentAppName, currentVersionCode, currentColor, cpBaseUrl, currentClientName, currentSmsRoute, currentResources, currentCustomTest, currentAds, currentEmail, currentMobile, currentExpiryDate, cpAccessKey)
+# print(getShortLinkBody("demo"))
 # start(noAdParentBranch, noAdBranchHeader, currentOrgCode, currentAppName, currentOrgId, currentVersionCode, currentVersionName, currentColor)
 # start(adParentBranch, adBranchHeader, currentOrgCode, currentAppName, currentOrgId, currentVersionCode, currentVersionName, currentColor)
 # editStrings(stringsFile, currentAppName, currentOrgId, currentOrgCode)
